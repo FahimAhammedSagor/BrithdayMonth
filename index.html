@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy New Month</title>
+<style>
+  body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:linear-gradient(135deg,#8b5cf6,#06b6d4,#f472b6);
+    background-size:300% 300%;
+    animation:bgmove 10s ease-in-out infinite;
+    color:white;
+    font-family:"Poppins",sans-serif;
+    text-align:center;
+  }
+  @keyframes bgmove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+  h1{
+    font-size:3rem;
+    cursor:pointer;
+    text-shadow:0 0 20px rgba(255,255,255,0.8);
+    transition:transform 0.3s ease;
+  }
+  h1:hover{transform:scale(1.1);}
+  .message{
+    display:none;
+    max-width:800px;
+    font-size:1.2rem;
+    line-height:1.8;
+    background:rgba(255,255,255,0.1);
+    padding:20px 30px;
+    border-radius:20px;
+    backdrop-filter:blur(6px);
+  }
+  .locked{
+    font-size:1rem;
+    opacity:0.8;
+    margin-top:10px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Happy New Month text -->
+  <h1 id="mainText">🎉 Happy New Month 🎉</h1>
+  <div id="lockMsg" class="locked"></div>
+
+  <!-- Hidden message -->
+  <div id="message" class="message">
+    <h2>Welcome to the New Month, PriYo ✨🌸</h2>
+    <p>
+    আমি তোমার সঙ্গে থাকা এই প্রথম তোমার জন্মদিনের মাসে।<br>
+    এই মাসটা আমার কাছে একদম আলাদা, কারণ এই মাসেই তুমি পৃথিবীতে এসেছিলে—<br>
+    এই মাসে আমার প্রিয় মানুষটা জন্মদিনের গ্রহণ করেছে।
+    </p>
+    <p>
+    তোমাকে পেয়ে আমি সত্যিই অনেক হ্যাপি।<br>
+    এই নতুন মাস হোক তোমার মতোই উজ্জ্বল, হাসিখুশি আর ভালোবাসায় ভরা।<br>
+    শুধু এই মাস নয়, তোমার জীবনের প্রতিটি মাস, প্রতিটি দিন হোক আনন্দে আর শান্তিতে ভরা। 🌙
+    </p>
+    <p>
+    তোমার প্রতিটা স্বপ্ন, ছোট হোক বা বড়, ইনশাআল্লাহ একদিন পূর্ণতা পাক।<br>
+    তোমার সব চাওয়া-পাওয়া সুন্দরভাবে বাস্তব হোক।<br>
+    আমরা যেমন চাই, তেমন হোক আমাদের দিনগুলো—<br>
+    আমরা একে পরের পাশে থেকে অনেক কিছু জয় করবো ইনশাআল্লাহ।<br>
+    ইনশাআল্লাহ এক পূর্ণতার গল্প হবে। 💫
+    </p>
+  </div>
+
+  <!-- Background music -->
+  <audio autoplay loop>
+    <source src="https://raw.githubusercontent.com/FahimAhammedSagor/Blue-song/main/videoplayback.mp3" type="audio/mpeg">
+  </audio>
+
+<script>
+const mainText = document.getElementById("mainText");
+const message = document.getElementById("message");
+const lockMsg = document.getElementById("lockMsg");
+
+// Unlock time: 1 November 2025, 00:00
+const unlockTime = new Date("2025-11-01T00:00:00");
+
+function checkLock(){
+  const now = new Date();
+  const diff = unlockTime - now;
+  if(diff <= 0){
+    lockMsg.textContent = "Unlocked! Click the text above 💫";
+    return true;
+  }else{
+    const days = Math.floor(diff/(1000*60*60*24));
+    const hours = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const mins = Math.floor((diff%(1000*60*60))/(1000*60));
+    const secs = Math.floor((diff%(1000*60))/1000);
+    lockMsg.textContent = `Opens in ${days}d ${hours}h ${mins}m ${secs}s`;
+    return false;
+  }
+}
+
+// update countdown every sec
+setInterval(checkLock,1000);
+checkLock();
+
+mainText.addEventListener("click",()=>{
+  if(checkLock()){
+    mainText.style.display="none";
+    lockMsg.style.display="none";
+    message.style.display="block";
+  }else{
+    alert("12 theke open hbe 🌙");
+  }
+});
+</script>
+
+</body>
+</html>
